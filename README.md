@@ -1,6 +1,6 @@
 # Mobile & App Security Lab Writeups
 
-A personal catalog of mobile application penetration-testing writeups from **authorized lab, CTF, and training targets** (e.g. Mobile Hacking Lab). Each entry documents the full chain — static analysis, the vulnerable code, and a reproduced proof-of-concept.
+A personal catalog of mobile application penetration-testing writeups from **authorized lab, CTF, and training targets** (e.g. Mobile Hacking Lab). Each entry documents the full chain - static analysis, the vulnerable code, and a reproduced proof-of-concept.
 
 > ⚠️ **Scope & authorization.** Everything here targets deliberately vulnerable practice apps or environments I own or am explicitly authorized to test. Nothing in this repo is intended for use against systems without written permission.
 
